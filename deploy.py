@@ -2,7 +2,7 @@ import boto3
 import os
 
 # Replace this with your actual S3 bucket name
-bucket_name = 'grace-digital-portfolio-2026'
+bucket_name = 'my-professional-portfolio-2026'
 folder = 'Digital Portfolio/'
 
 # Connect to S3
@@ -14,4 +14,5 @@ for root, dirs, files in os.walk(folder):
         local_path = os.path.join(root, file)
         s3_path = os.path.relpath(local_path, folder)
         s3.upload_file(local_path, bucket_name, s3_path)
+
         print(f'Uploaded {file} to S3')
