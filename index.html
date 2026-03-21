@@ -1,145 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Grace Ngonyo | Cloud & DevOps Engineer</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grace Kihonge | Cloud & DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --accent: #00e5a0;
+    --accent2: #6c63ff;
+    --text: #f0f0f0;
+    --muted: #888;
+    --border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px); z-index: 100;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--accent); color: #0a0a0f; font-weight: 700; font-size: 13px; padding: 8px 20px; border-radius: 8px; text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    padding: 100px 48px 88px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2);
+    color: var(--accent); font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .pulse { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; line-height: 1.02; letter-spacing: -2.5px; margin-bottom: 22px; }
+  h1 span { color: var(--accent); }
+  .hero-sub { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 40px; max-width: 460px; }
+  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: var(--accent); color: #0a0a0f; font-weight: 700; font-size: 14px; padding: 13px 28px; border-radius: 8px; text-decoration: none; }
+  .btn-outline { background: transparent; color: var(--text); font-weight: 500; font-size: 14px; padding: 13px 28px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; }
+
+  /* TERMINAL */
+  .terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+  .terminal-bar { display: flex; gap: 6px; margin-bottom: 20px; }
+  .t-red { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+  .t-yellow { width: 10px; height: 10px; border-radius: 50%; background: #febc2e; }
+  .t-green { width: 10px; height: 10px; border-radius: 50%; background: #28c840; }
+  .t-line { font-family: monospace; font-size: 13px; margin-bottom: 8px; line-height: 1.6; }
+  .t-cmd { color: var(--accent); }
+  .t-out { color: var(--muted); }
+  .t-purple { color: #a89dff; }
+  .t-url { color: var(--accent); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  /* SECTIONS */
+  .section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 48px; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-2px); }
+  .skill-icon { font-size: 22px; margin-bottom: 12px; }
+  .skill-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .skill-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .project-card:hover { border-color: rgba(108,99,255,0.4); transform: translateY(-2px); }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .project-tag { display: inline-block; background: rgba(108,99,255,0.15); color: #a89dff; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+  .project-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .stack-pill { background: rgba(255,255,255,0.05); color: var(--muted); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); }
+  .project-link { color: var(--accent); font-size: 13px; font-weight: 600; text-decoration: none; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* BLOG */
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .blog-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s, transform 0.2s; text-decoration: none; color: inherit; display: block; }
+  .blog-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-2px); }
+  .blog-day { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .blog-title { font-weight: 600; font-size: 15px; line-height: 1.4; margin-bottom: 10px; }
+  .blog-excerpt { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .blog-more { text-align: center; margin-top: 32px; }
+  .blog-more a { color: var(--accent); font-size: 14px; font-weight: 600; text-decoration: none; border: 1px solid rgba(0,229,160,0.3); padding: 10px 24px; border-radius: 8px; }
+
+  /* CERTIFICATIONS */
+  .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cert-item { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; transition: border-color 0.2s; }
+  .cert-item:hover { border-color: rgba(0,229,160,0.3); }
+  .cert-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,229,160,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cert-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .cert-issuer { font-size: 12px; color: var(--muted); }
+  .cert-badge { display: inline-block; background: rgba(0,229,160,0.1); color: var(--accent); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
+
+  /* CONTACT */
+  .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 64px; text-align: center; }
+  .contact-title { font-family: 'Syne', sans-serif; font-size: 44px; font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; }
+  .contact-title span { color: var(--accent); }
+  .contact-sub { color: var(--muted); margin-bottom: 36px; font-size: 16px; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .contact-link { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .contact-link:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 36px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  footer span { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    h1 { font-size: 40px; }
+    .section { padding: 56px 24px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .contact-box { padding: 40px 24px; }
+    .contact-title { font-size: 32px; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>Grace Ngonyo</h1>
-        <p>Cloud | DevOps | Cybersecurity Enthusiast</p>
-    </div>
-</header>
-
+<!-- NAV -->
 <nav>
-    <div class="container">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </div>
+  <a href="#" class="logo">GK.</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#blog">Blog</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Hire Me</a>
 </nav>
 
-<section id="about" class="section">
-    <div class="container">
-        <h2>About Me</h2>
-        <p>
-            I am a passionate Cloud and DevOps Engineer with strong foundations in 
-            Oracle Cloud Infrastructure, automation, CI/CD pipelines, and system administration. 
-            I am continuously expanding my expertise in Cybersecurity and cloud-native technologies.
-        </p>
-        <p>
-            My goal is to design secure, scalable, and automated infrastructure solutions 
-            that empower businesses to innovate faster and operate efficiently.
-        </p>
+<!-- HERO -->
+<section id="about">
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><div class="pulse"></div> Open to Cloud & DevOps Roles</div>
+      <h1>Grace<br><span>Kihonge.</span></h1>
+      <p class="hero-sub">Cloud & DevOps Engineer building production-grade infrastructure on AWS. Terraform. Docker. Kubernetes. CI/CD. From IT Support to the cloud — building in public every single day.</p>
+      <div class="btn-group">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#blog" class="btn-outline">Read Blog</a>
+      </div>
     </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-red"></div><div class="t-yellow"></div><div class="t-green"></div>
+      </div>
+      <div class="t-line"><span class="t-cmd">$ </span><span class="t-purple">terraform</span> apply</div>
+      <div class="t-line t-out">Plan: 6 to add, 0 to change, 0 to destroy.</div>
+      <div class="t-line t-out">&nbsp; + aws_lb.web_alb</div>
+      <div class="t-line t-out">&nbsp; + aws_autoscaling_group.web_asg</div>
+      <div class="t-line t-out">&nbsp; + aws_launch_template.web_lt</div>
+      <div class="t-line t-out">&nbsp; + aws_lb_target_group.web_tg</div>
+      <div class="t-line"><span class="t-cmd">Apply complete!</span> <span class="t-out">Resources: 6 added.</span></div>
+      <div class="t-line" style="margin-top:14px"><span class="t-cmd">$ </span><span class="t-purple">terraform</span> output</div>
+      <div class="t-line t-out">alb_dns = <span class="t-url">"app-alb-123.us-east-1.elb.amazonaws.com"</span></div>
+      <div class="t-line" style="margin-top:14px"><span class="t-cmd">$ </span>echo <span class="t-url">"Infrastructure is live."</span></div>
+    </div>
+  </div>
 </section>
 
-<section id="skills" class="section alt">
-    <div class="container">
-        <h2>Technical Skills</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Cloud Platforms</h3>
-                <ul>
-                    <li>Oracle Cloud Infrastructure (OCI)</li>
-                    <li>AWS (EC2, S3, IAM)</li>
-                </ul>
-            </div>
+<hr class="divider">
 
-            <div class="card">
-                <h3>DevOps Tools</h3>
-                <ul>
-                    <li>Jenkins CI/CD</li>
-                    <li>Git & GitHub</li>
-                    <li>Docker</li>
-                    <li>Kubernetes</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Programming & Scripting</h3>
-                <ul>
-                    <li>Python</li>
-                    <li>Bash</li>
-                    <li>HTML & CSS</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Cybersecurity</h3>
-                <ul>
-                    <li>Networking Fundamentals</li>
-                    <li>Security Principles</li>
-                    <li>Access Control & IAM</li>
-                </ul>
-            </div>
-        </div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section">
+    <div class="section-label">Skills</div>
+    <div class="section-title">What I build with</div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">☁️</div><div class="skill-name">AWS</div><div class="skill-desc">EC2, S3, IAM, VPC, ALB, Auto Scaling, DynamoDB</div></div>
+      <div class="skill-card"><div class="skill-icon">⚡</div><div class="skill-name">Terraform</div><div class="skill-desc">IaC, remote state, workspaces, modules, state locking</div></div>
+      <div class="skill-card"><div class="skill-icon">🐳</div><div class="skill-name">Docker</div><div class="skill-desc">Containerisation, image management, volumes</div></div>
+      <div class="skill-card"><div class="skill-icon">⚙️</div><div class="skill-name">Jenkins</div><div class="skill-desc">CI/CD pipelines, credentials management, automation</div></div>
+      <div class="skill-card"><div class="skill-icon">🔷</div><div class="skill-name">Kubernetes</div><div class="skill-desc">Container orchestration, Minikube, Nginx deployments</div></div>
+      <div class="skill-card"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-desc">Boto3, scripting, automation, Flask applications</div></div>
+      <div class="skill-card"><div class="skill-icon">🛡️</div><div class="skill-name">Security</div><div class="skill-desc">IAM, security groups, HTTPS, MFA, SSH hardening</div></div>
+      <div class="skill-card"><div class="skill-icon">🖥️</div><div class="skill-name">Linux</div><div class="skill-desc">Ubuntu, Nginx, Systemd, Bash scripting, Gunicorn</div></div>
     </div>
+  </div>
 </section>
 
-<section id="certifications" class="section">
-    <div class="container">
-        <h2>Certifications</h2>
-        <ul class="cert-list">
-            <li>Oracle Cloud Infrastructure Foundations Associate</li>
-            <li>Oracle Cloud Infrastructure Architect Associate</li>
-            <li>Introduction to Cybersecurity</li>
-            <li>Networking Basics</li>
-        </ul>
-        <p>Currently advancing towards mastering Cybersecurity and Cloud Security Engineering.</p>
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section">
+    <div class="section-label">Projects</div>
+    <div class="section-title">Things I've built</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tag">AWS · Flask · Python</div>
+        <div class="project-title">TrendPulse Scalable App</div>
+        <div class="project-desc">Production-ready Flask application deployed on AWS EC2 with Nginx as a reverse proxy, Gunicorn as the WSGI server, Auto Scaling Group, Application Load Balancer and Redis caching.</div>
+        <div class="project-stack">
+          <span class="stack-pill">EC2</span>
+          <span class="stack-pill">Nginx</span>
+          <span class="stack-pill">Gunicorn</span>
+          <span class="stack-pill">Redis</span>
+          <span class="stack-pill">Auto Scaling</span>
+          <span class="stack-pill">ALB</span>
+        </div>
+        <a href="https://github.com/Grace4549/trendpulse-scalable-app" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Jenkins · CI/CD · AWS S3</div>
+        <div class="project-title">DevOps Deployment Pipeline</div>
+        <div class="project-desc">Automated Jenkins CI/CD pipeline that deploys a static website to AWS S3. Uses Python Boto3 for deployment logic and Jenkins credentials management to handle AWS authentication securely.</div>
+        <div class="project-stack">
+          <span class="stack-pill">Jenkins</span>
+          <span class="stack-pill">Python</span>
+          <span class="stack-pill">Boto3</span>
+          <span class="stack-pill">AWS S3</span>
+          <span class="stack-pill">CI/CD</span>
+        </div>
+        <a href="https://github.com/Grace4549/devops-portfolio" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">AWS · Nginx · HTTPS</div>
+        <div class="project-title">EC2 Static Website</div>
+        <div class="project-desc">Production static website deployed on AWS EC2 running Ubuntu 22.04. Configured Nginx as the web server with HTTPS via Let's Encrypt and SSH access restricted to specific IP for security.</div>
+        <div class="project-stack">
+          <span class="stack-pill">EC2</span>
+          <span class="stack-pill">Nginx</span>
+          <span class="stack-pill">Let's Encrypt</span>
+          <span class="stack-pill">Ubuntu</span>
+          <span class="stack-pill">HTTPS</span>
+        </div>
+        <a href="https://github.com/Grace4549/aws-ec2-static-website" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Terraform · IaC · AWS</div>
+        <div class="project-title">30-Day Terraform Challenge</div>
+        <div class="project-desc">Daily hands-on Terraform builds on AWS — from a single EC2 instance to ALB, Auto Scaling Groups, remote state with S3 and DynamoDB locking, workspaces and multi-environment isolation.</div>
+        <div class="project-stack">
+          <span class="stack-pill">Terraform</span>
+          <span class="stack-pill">ALB</span>
+          <span class="stack-pill">ASG</span>
+          <span class="stack-pill">S3 State</span>
+          <span class="stack-pill">DynamoDB</span>
+          <span class="stack-pill">Workspaces</span>
+        </div>
+        <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="projects" class="section alt">
-    <div class="container">
-        <h2>Projects</h2>
+<hr class="divider">
 
-        <div class="card">
-            <h3>Automated Static Website Deployment</h3>
-            <p>
-                Built and deployed a static professional portfolio website using AWS S3, 
-                EC2, Jenkins CI/CD, and Python (boto3) for automated deployments.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Kubernetes Nginx Deployment</h3>
-            <p>
-                Deployed containerized Nginx application using Kubernetes and Minikube, 
-                implementing scalable and resilient container orchestration.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Linux & DevOps Automation Lab</h3>
-            <p>
-                Practiced Linux administration, shell scripting, file management, 
-                and CI/CD automation pipelines in cloud environments.
-            </p>
-        </div>
-
+<!-- BLOG -->
+<section id="blog">
+  <div class="section">
+    <div class="section-label">Blog</div>
+    <div class="section-title">30-Day Terraform Challenge</div>
+    <div class="blog-grid">
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 1</div>
+        <div class="blog-title">What is Infrastructure as Code and Why It Matters</div>
+        <div class="blog-excerpt">IaC, declarative vs imperative approaches, and why Terraform is one of the most important skills in DevOps today.</div>
+      </a>
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 3</div>
+        <div class="blog-title">Deploying My First Server with Terraform</div>
+        <div class="blog-excerpt">EC2, security groups, user data scripts and the real challenges of a first Terraform deployment — including what broke and how I fixed it.</div>
+      </a>
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 4</div>
+        <div class="blog-title">Building a Highly Available Web App with Auto Scaling and Load Balancing</div>
+        <div class="blog-excerpt">Moving from a single server to a production-style architecture with ASG, ALB and Launch Templates.</div>
+      </a>
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 5</div>
+        <div class="blog-title">Managing High Traffic Applications with ALB and Terraform State</div>
+        <div class="blog-excerpt">Deep dive into Terraform state management, state drift detection and how ALB distributes traffic across instances.</div>
+      </a>
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 6</div>
+        <div class="blog-title">Managing and Securing Terraform State</div>
+        <div class="blog-excerpt">Remote state with S3, DynamoDB state locking, state migration and why this is non-negotiable in production environments.</div>
+      </a>
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank" class="blog-card">
+        <div class="blog-day">Day 7</div>
+        <div class="blog-title">State Isolation: Workspaces vs File Layouts</div>
+        <div class="blog-excerpt">How to manage multiple environments without them interfering — and which approach actually works in production teams.</div>
+      </a>
     </div>
+    <div class="blog-more">
+      <a href="https://github.com/Grace4549/terraform-blog" target="_blank">View all blog posts on GitHub →</a>
+    </div>
+  </div>
 </section>
 
-<section id="contact" class="section">
-    <div class="container">
-        <h2>Contact</h2>
-        <p>Email: kihongegrace4549@gmail.com</p>
+<hr class="divider">
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section">
+    <div class="section-label">Certifications</div>
+    <div class="section-title">Credentials</div>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">OCI Foundations Associate</div>
+          <div class="cert-issuer">Oracle Cloud Infrastructure</div>
+          <div class="cert-badge">2025</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">OCI Cloud Architect Associate</div>
+          <div class="cert-issuer">Oracle Cloud Infrastructure</div>
+          <div class="cert-badge">2025</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">Networking Basics</div>
+          <div class="cert-issuer">Cisco</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">Introduction to Cybersecurity</div>
+          <div class="cert-issuer">Cisco</div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <div class="contact-box">
+      <div class="contact-title">Let's <span>connect.</span></div>
+      <p class="contact-sub">Open to Cloud and DevOps opportunities — remote, Nairobi or Dubai. Let's build something great.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/grace-kihonge-1354a9310/" target="_blank" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/Grace4549" target="_blank" class="contact-link">GitHub</a>
+        <a href="mailto:kihongegrace4549@gmail.com" class="contact-link">Email Me</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-    <div class="container">
-        <p>© 2026 Grace Ngonyo | Cloud & DevOps Engineer</p>
-    </div>
+  <p>© 2026 <span>Grace Kihonge</span> · Cloud & DevOps Engineer · Built with intention.</p>
 </footer>
 
 </body>
